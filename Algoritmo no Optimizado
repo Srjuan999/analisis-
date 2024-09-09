@@ -1,0 +1,53 @@
+package sumpairnooptimized;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
+
+public class SumPairNoOptimized {
+
+    // Algoritmo no optimizado
+    public static long sumPair0(int[] vector) {
+        long count = 0;
+        for (int i = 0; i < vector.length; i++) {
+            for (int j = i + 1; j < vector.length; j++) {
+                if ((vector[i] + vector[j]) % 2 == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        int n = 100000; // Puedes ajustar el tamaño para probar límites
+        int[] vector = new int[n];
+
+        // Llenar el array con números aleatorios
+        for (int i = 0; i < n; i++) {
+            vector[i] = random.nextInt(1000);
+        }
+
+        // Ejecutar el algoritmo no optimizado
+        long startTime = System.currentTimeMillis();
+        long result = sumPair0(vector);
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+
+        System.out.println("Número de pares válidos (no optimizado): " + result);
+        System.out.println("Tiempo de ejecución (no optimizado): " + executionTime + "ms");
+
+        // Guardar los resultados en un archivo .txt
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("no_optimizado_resultado.txt"));
+            writer.write("Número de elementos (n): " + n + "\n");
+            writer.write("Número de pares válidos (no optimizado): " + result + "\n");
+            writer.write("Tiempo de ejecución (no optimizado): " + executionTime + "ms\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al escribir el archivo.");
+        }
+    }
+}
